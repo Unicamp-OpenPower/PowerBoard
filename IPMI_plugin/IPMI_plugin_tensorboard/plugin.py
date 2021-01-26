@@ -33,7 +33,7 @@ _IPMI_PLUGIN_NAME= metadata.PLUGIN_NAME
 #dados obtidos estara nesse diretorio
 _PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/IPMI_plugin/"
 
-class IMPI_Plugin(base_plugin.TBPlugin):
+class IPMI_Plugin(base_plugin.TBPlugin):
     """Using IPMI in TensorBoard to be abble to debbugin POWER in process."""
 
     plugin_name = "IPMI_Plugin"
