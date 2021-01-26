@@ -36,7 +36,7 @@ _PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/IPMI_plugin/"
 class IMPI_Plugin(base_plugin.TBPlugin):
     """Using IPMI in TensorBoard to be abble to debbugin POWER in process."""
 
-    plugin_name = "IPMI_plugin"
+    plugin_name = "IPMI_Plugin"
 
     def __init__(self, context):
         """Instantiates ExampleRawScalarsPlugin.
