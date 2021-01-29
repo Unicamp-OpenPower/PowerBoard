@@ -1,1 +1,1 @@
-PLUGIN_NAME = "IMPI_plugin"
+PLUGIN_NAME = "IPMI_Plugin"
