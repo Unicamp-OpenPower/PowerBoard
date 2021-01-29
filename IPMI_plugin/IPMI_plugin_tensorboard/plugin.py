@@ -18,25 +18,30 @@ Every plugin in TensorBoard must extend and implement the abstract
 methods of this base class.
 """
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+
 import mimetypes
 import os
-
+import json
 from werkzeug import wrappers
+import tensorflow.compat.v2 as tf
 
 from tensorboard import errors
 from tensorboard.backend import http_util
 from tensorboard.plugins import base_plugin
 from tensorboard.util import tensor_util
-from tensorboard.plugins.scalar import metadata
+from .metadata import PLUGIN_NAME
 
-_IPMI_PLUGIN_NAME= metadata.PLUGIN_NAME
 #dados obtidos estara nesse diretorio
 _PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/IPMI_plugin/"
 
-class IPMI_Plugin(base_plugin.TBPlugin):
+class IMPI_Plugin(base_plugin.TBPlugin):
     """Using IPMI in TensorBoard to be abble to debbugin POWER in process."""
 
-    plugin_name = "IPMI_Plugin"
+    plugin_name = PLUGIN_NAME
 
     def __init__(self, context):
         """Instantiates ExampleRawScalarsPlugin.
@@ -49,7 +54,7 @@ class IPMI_Plugin(base_plugin.TBPlugin):
         return {
             "/scalars": self.scalars_route,
             "/tags": self._serve_tags,
-            "/impi/*": self._serve_ipmi_file,
+            "/static/*": self._serve_static_file,
         }
     
     
@@ -62,20 +67,20 @@ class IPMI_Plugin(base_plugin.TBPlugin):
         {runName: [tagName, tagName, ...]}
         """
         run_tag_mapping = self._multiplexer.PluginRunToTagToContent(
-            _IPMI_PLUGIN_NAME
+            self.plugin_name
         )
         run_info = {run: list(tags) for (run, tags) in run_tag_mapping.items()}
 
         return http_util.Respond(request, run_info, "application/json")
 
     @wrappers.Request.application
-    def _serve_ipmi_file(self, request):
+    def _serve_static_file(self, request):
        
-        ipmi_path_part = request.path[len(_PLUGIN_DIRECTORY_PATH_PART) :]
+        static_path_part = request.path[len(_PLUGIN_DIRECTORY_PATH_PART) :]
         resource_name = os.path.normpath(
-            os.path.join(*ipmi_path_part.split("/"))
+            os.path.join(*static_path_part.split("/"))
         )
-        if not resource_name.startswith("ipmi" + os.path.sep):
+        if not resource_name.startswith("static" + os.path.sep):
             return http_util.Respond(
                 request, "Not found", "text/plain", code=404
             )
@@ -92,7 +97,7 @@ class IPMI_Plugin(base_plugin.TBPlugin):
         from the main navigation bar.
         """
         return bool(
-            self._multiplexer.PluginRunToTagToContent(_IPMI_PLUGIN_NAME)
+            self._multiplexer.PluginRunToTagToContent(self.plugin_name)
         )
 
     def frontend_metadata(self):
