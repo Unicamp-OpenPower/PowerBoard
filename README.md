@@ -5,7 +5,7 @@
 In the first moment, this first version we pretend read a fake power data, and display on tensorboard. In the next versions we pretend to link IPMI with database and read the power datas obtained from ipmi. And our goals aims to integrate trace viewer with IPMI, debbuging all bottlenecks with Power information in all long the process.
 
 ## Planning
-Check issue #4 to understand the development stages.
+Check [Issue #3](/../../issues/3) to understand the development stages.
 
 Now, i'll show how to setup the plugin:
 
