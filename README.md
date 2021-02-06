@@ -7,6 +7,8 @@ In the first moment, this first version we pretend read a fake power data, and d
 ## Planning
 Check [Issue #3](/../../issues/3) to understand the development stages.
 
+## Installation
+
 Now, i'll show how to setup the plugin:
 
 All files under [`static/*`][static-dir] are served as static assets, with the frontend entry point being [`static/index.js`][static-index-js]. The plugin backend serves scalar summaries (e.g. values written by [`tf.summary.scalar`][summary_scalar_docs]) from runs within the `--logdir` passed to TensorBoard.
