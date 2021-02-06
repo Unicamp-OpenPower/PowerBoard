@@ -1,1 +1,0 @@
-PLUGIN_NAME = "IPMI_Plugin"

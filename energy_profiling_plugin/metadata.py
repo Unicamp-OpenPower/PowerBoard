@@ -12,30 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Demo code.
-This generates summary logs viewable by the raw scalars example plugin.
-After installing the plugin (`python setup.py develop`), you can run TensorBoard
-with logdir set to the `demo_logs` directory.
-"""
+"""Plugin-specific global metadata."""
 
 
-import math
-
-from absl import app
-import tensorflow as tf
-from random import seed
-from random import random   
-
-tf.compat.v1.enable_eager_execution()
-tf = tf.compat.v2
-
-seed(300)
-def main(unused_argv):
-    writer = tf.summary.create_file_writer("demo_logs")
-    with writer.as_default():
-        for i in range(300):
-            tf.summary.scalar("IMPI_Plugin", random(), step=i)
-
-
-if __name__ == "__main__":
-    app.run(main)
+PLUGIN_NAME = "energy_profiling"

@@ -1,5 +1,5 @@
 # Description:
-# TensorBoard example plugin
+# Energy Profiling plugin for TensorBoard.
 
 # This plugin is not primarily built with Bazel (intentionally, to
 # demonstrate that Bazel is not required); we use this BUILD file only
@@ -15,31 +15,16 @@ sh_test(
     timeout = "moderate",
     srcs = ["smoke_test.sh"],
     # Don't just `glob(["**"])` because `setup.py` creates artifacts
-    # like wheels and a `tensorboard_plugin_example_raw_scalars.egg-info`
-    # directory, and we want to make sure that those don't interfere with the
-    # test.
+    # like wheels and a `tensorboard_plugin_example.egg-info` directory,
+    # and we want to make sure that those don't interfere with the test.
     data = [
         "setup.py",
         "//tensorboard/pip_package",
     ] + glob([
-        "IPMI_plugin_tensorboard/*.py",
-        "IPMI_plugin_tensorboard/static/**",
+        "energy_profiling_plugin/*.py",
+        "energy_profiling_plugin/static/**",
     ]),
     tags = [
         "manual",  # https://github.com/tensorflow/tensorboard/issues/2987
-    ],
-)
-
-py_test(
-    name = "unit_test",
-    size = "small",
-    srcs = [
-        "test.py",
-    ],
-    main = "test.py",
-    srcs_version = "PY3",
-    tags = ["support_notf"],
-    deps = [
-        "//tensorboard",
     ],
 )
