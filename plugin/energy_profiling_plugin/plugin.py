@@ -56,7 +56,7 @@ class EnergyProfiling(base_plugin.TBPlugin):
     def get_plugin_apps(self):
         return {
             "/index.js": self._serve_js,
-            "/printdata": self._serve_printdata,
+            "/data": self._serve_data,
             "/plotgraph": self._serve_plotgraph,
             "/static/*": self._serve_static_file,
             "/tags": self._serve_tags,
@@ -77,11 +77,16 @@ class EnergyProfiling(base_plugin.TBPlugin):
         )
 
     @wrappers.Request.application
-    def _serve_printdata(self, request):
-        del request
-        new_dict = {'Second': 'Print'}
-        contents = json.dumps(new_dict)
-        return werkzeug.Response(contents, content_type="application/json")
+    def _serve_data(self,request):
+        df= pd.read_csv("./data/data.csv")
+        power=df["Power"].tolist()
+        time =df["Time"].tolist()
+        dict={'x': power, 'y': time}
+        contents = json.dumps(dict)
+        #return werkzeug.Response(contents, content_type="application/json")
+        return http_util.Respond(
+            request, contents, content_type='application/json'
+        )
 
     @wrappers.Request.application
     def _serve_plotgraph(self, request):
@@ -92,7 +97,10 @@ class EnergyProfiling(base_plugin.TBPlugin):
             "y": [random.randint(0, 20) for i in range(size)]
         }
         contents = json.dumps(new_dict)
-        return werkzeug.Response(contents, content_type="application/json")
+        #return werkzeug.Response(contents, content_type="application/json")
+        return http_util.Respond(
+            request, contents, content_type='application/json'
+        )
 
     @wrappers.Request.application
     def _serve_static_file(self, request):
@@ -141,7 +149,10 @@ class EnergyProfiling(base_plugin.TBPlugin):
             print()
             print("contents:", file=f)
             print(contents, file=f)
-        return werkzeug.Response(contents, content_type="application/json")
+        #return werkzeug.Response(contents, content_type="application/json")
+        return http_util.Respond(
+            request, contents, content_type='application/json'
+        )
 
     @wrappers.Request.application
     def _serve_greetings(self, request):
@@ -164,6 +175,7 @@ class EnergyProfiling(base_plugin.TBPlugin):
         except KeyError:
             raise werkzeug.exceptions.BadRequest("Invalid run or tag")
         contents = json.dumps(data, sort_keys=True)
-        return werkzeug.Response(contents, content_type="application/json")
-
-        return werkzeug.Response(contents, content_type="application/json")
+        #return werkzeug.Response(contents, content_type="application/json")
+        return http_util.Respond(
+            request, contents, content_type='application/json'
+        )
