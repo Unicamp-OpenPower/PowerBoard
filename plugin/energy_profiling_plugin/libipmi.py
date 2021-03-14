@@ -9,11 +9,12 @@ time_start = 0
 glob_var = True
 thread_list = []
 
+# Stop the data reading using a global variable
 def stop():
     global glob_var
     glob_var = False
 
-# Class for threading
+# Function for threading the data saving on the Database
 def saveDB(single_buffer, threadID):
     print("\n" + "ThreadID:" + str(threadID) + "\n")
     conn = sql.connect('ipmi_data.db')
@@ -25,6 +26,7 @@ def saveDB(single_buffer, threadID):
     conn.commit()
     conn.close()
 
+# The function in which runs the loop that collects the data
 def mainThread():
     global glob_var
     global thread_list
@@ -103,6 +105,7 @@ def mainThread():
       conn.commit()
       conn.close()
 
+# Starts the main thread and sets the timestamp
 def start():
     command = ['sudo', 'echo']
     process = subprocess.run(
@@ -116,6 +119,7 @@ def start():
     main_thread = threading.Thread(target=mainThread)
     main_thread.start()
 
+# Saves the raw database data on a nice CSV file
 def dbToCSV():
     conn = sql.connect('ipmi_data.db')
     c = conn.cursor()
