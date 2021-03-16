@@ -3,6 +3,9 @@ import sqlite3 as sql
 import subprocess
 import time
 import csv
+import shutil
+import summary_v2
+import tensorflow as tf
 import os
 
 time_start = 0
@@ -120,7 +123,16 @@ def start():
     main_thread.start()
 
 # Saves the raw database data on a nice CSV file
-def dbToCSV():
+def dbToCSV(path):
+    try:
+        os.mkdir(path)
+    except:
+        print ("Creation of the directory %s failed" % path)
+    else:
+        print ("Successfully created the directory %s " % path)
+    writer = tf.summary.create_file_writer("demo_logs")
+    with writer.as_default():
+         summary_v2.greeting("ipmi_data.csv",path, step=0)
     conn = sql.connect('ipmi_data.db')
     c = conn.cursor()
     sens = 'Total Power'
@@ -153,3 +165,5 @@ def dbToCSV():
                 current_row.append("{:.5f}".format(read_time_value))
                 #print(current_row)
             write.writerow(current_row)
+    #add the CSV file in a path passed in argument
+    shutil.move("ipmi_data.csv",path)
