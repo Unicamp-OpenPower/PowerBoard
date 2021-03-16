@@ -78,9 +78,12 @@ class EnergyProfiling(base_plugin.TBPlugin):
 
     @wrappers.Request.application
     def _serve_data(self,request):
-        df= pd.read_csv("./data/data.csv")
-        power=df["Power"].tolist()
-        time =df["Time"].tolist()
+        path=request.args.get("tag")
+        df= pd.read_csv(path)
+        #para ver o pandas dataframe 
+        #print(df)
+        power=df["Sensor_Reading"].tolist()
+        time =df["Time_elapsed"].tolist()
         dict={'x': power, 'y': time}
         contents = json.dumps(dict)
         #return werkzeug.Response(contents, content_type="application/json")
