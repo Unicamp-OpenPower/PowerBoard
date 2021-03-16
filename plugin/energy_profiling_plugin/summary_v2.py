@@ -49,7 +49,7 @@ def greeting(name, guest, step=None, description=None):
     ) as (tag, _):
         return tf.summary.write(
             tag=tag,
-            tensor=tf.strings.join(["Hello, ", guest, "!"]),
+            tensor=tf.strings.join([guest]),
             step=step,
             metadata=_create_summary_metadata(description),
         )
