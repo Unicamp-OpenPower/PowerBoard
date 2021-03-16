@@ -28,7 +28,9 @@ export async function render() {
  document.body.appendChild(newChart);
 
  const graphData = await fetch('./plotgraph').then((response) => response.json());
- //const data2= await fetch('./data').then((response)  => response.json());
+ //data2 contem os dados reais adquiridos pelo IPMI
+ const data2= await fetch('./data').then((response)  => response.json());
+ //console.log(data2)
 
  var script = document.createElement('script');
  script.onload = function () {
