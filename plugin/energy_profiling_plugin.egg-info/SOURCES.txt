@@ -1,0 +1,17 @@
+README.md
+setup.py
+energy_profiling_plugin/__init__.py
+energy_profiling_plugin/demo.py
+energy_profiling_plugin/libipmi.py
+energy_profiling_plugin/metadata.py
+energy_profiling_plugin/plugin.py
+energy_profiling_plugin/profiling_example.py
+energy_profiling_plugin/summary_v2.py
+energy_profiling_plugin.egg-info/PKG-INFO
+energy_profiling_plugin.egg-info/SOURCES.txt
+energy_profiling_plugin.egg-info/dependency_links.txt
+energy_profiling_plugin.egg-info/entry_points.txt
+energy_profiling_plugin.egg-info/top_level.txt
+energy_profiling_plugin/static/Chart.min.css
+energy_profiling_plugin/static/Chart.min.js
+energy_profiling_plugin/static/index.js

@@ -144,7 +144,7 @@ def dbToCSV(path):
                      'Lower_Non_Critical', 'Upper_Non_Critical', 'Upper_Critical',
                      'Upper_Non_Recoverable', 'Positive_Hysteresis',
                      'Negative_Hysteresis', 'Assertion_Events',
-                     'Assertions_Enabled', 'Deassertions_Enabled', 'Time_elapsed']
+                     'Assertions_Enabled', 'Time_elapsed']
         write.writerow(first_row)
         for db_row in c.execute("SELECT * FROM SensorData"):
             output = str(db_row[0])
@@ -161,9 +161,10 @@ def dbToCSV(path):
                     if len(output[i][j]) > 0:
                         current_row.append(output[i][j][0])
                     else:
-                        current_row.append('')
-                current_row.append("{:.5f}".format(read_time_value))
-                #print(current_row)
+                        current_row.append('Empty_string')
+            current_row.append("{:.5f}".format(read_time_value))
+            #print(current_row)
+            #print(current_row)
             write.writerow(current_row)
     #add the CSV file in a path passed in argument
-    shutil.move("ipmi_data.csv",path)
+    shutil.copy("ipmi_data.csv",path)

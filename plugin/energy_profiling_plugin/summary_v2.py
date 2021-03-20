@@ -18,7 +18,7 @@
 import tensorflow.compat.v2 as tf
 from tensorboard.compat.proto import summary_pb2
 
-from energy_profiling_plugin import metadata
+import metadata
 
 
 def greeting(name, guest, step=None, description=None):
