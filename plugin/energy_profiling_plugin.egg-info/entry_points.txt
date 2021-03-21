@@ -1,3 +1,0 @@
-[tensorboard_plugins]
-energy_profiling = energy_profiling_plugin.plugin:EnergyProfiling
-
