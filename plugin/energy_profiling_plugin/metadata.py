@@ -16,4 +16,4 @@
 """Plugin-specific global metadata."""
 
 
-PLUGIN_NAME = "energy_profiling"
+PLUGIN_NAME = "powerboard"
