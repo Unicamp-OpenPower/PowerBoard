@@ -18,16 +18,16 @@ import setuptools
 
 
 setuptools.setup(
-    name="energy_profiling_plugin",
+    name="powerboard",
     version="0.1.0",
     description="Energy Profiling plugin for TensorBoard.",
-    packages=["energy_profiling_plugin"],
+    packages=["powerboard"],
     package_data={
-        "energy_profiling_plugin": ["static/**"],
+        "powerboard": ["static/**"],
     },
     entry_points={
         "tensorboard_plugins": [
-            "energy_profiling = energy_profiling_plugin.plugin:EnergyProfiling",
+            "powerboard = powerboard.plugin:PowerBoard",
         ],
     },
 )
