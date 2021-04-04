@@ -29,15 +29,15 @@ from tensorboard.util import tensor_util
 import werkzeug
 from werkzeug import wrappers
 
-from energy_profiling_plugin import metadata
+from powerboard import metadata
 
-_PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/energy_profiling/"
+_PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/powerboard/"
 
-class EnergyProfiling(base_plugin.TBPlugin):
+class PowerBoard(base_plugin.TBPlugin):
     plugin_name = metadata.PLUGIN_NAME
 
     def __init__(self, context):
-        """Instantiates EnergyProfiling.
+        """Instantiates PowerBoard.
 
         Args:
         context: A base_plugin.TBContext instance.
