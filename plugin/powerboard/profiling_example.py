@@ -32,6 +32,12 @@ tfds.disable_progress_bar()
 
 print("TensorFlow version: ", tf.__version__)
 
+
+stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+logdir = 'logs/fit/%s' % stamp
+writer = tf.summary.create_file_writer(logdir)
+tf.summary.trace_on(profiler=True)
+
 """
 device_name = tf.test.gpu_device_name()
 if not device_name:
@@ -69,21 +75,21 @@ model.compile(
 )
 
 # Create a TensorBoard callback
-logs = "logs/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 
-tboard_callback = tf.keras.callbacks.TensorBoard(log_dir = logs,
-                                                 histogram_freq = 1,
-                                                 profile_batch = '500,520')
+
 
 #####################################################################
 libipmi.start()
 #####################################################################
 
 model.fit(ds_train,
-          epochs=2,
-          validation_data=ds_test,
-          callbacks = [tboard_callback])
-
+          epochs=5,
+          validation_data=ds_test)
+with writer.as_default():
+  tf.summary.trace_export(
+      name="conv", # optional name
+      step=0,
+      profiler_outdir=logdir)
 #####################################################################
 libipmi.stop()
 libipmi.dbToCSV('./data')
