@@ -4,7 +4,7 @@ import subprocess
 import time
 import csv
 import shutil
-import summary_v2
+from powerboard import summary_v2
 import tensorflow as tf
 import os
 
