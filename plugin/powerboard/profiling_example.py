@@ -18,7 +18,7 @@ from datetime import datetime
 import os
 
 #####################################################################
-import libipmi
+from powerboard import libipmi
 #####################################################################
 
 #!pip install -U tensorboard_plugin_profile
@@ -76,8 +76,6 @@ model.compile(
 
 # Create a TensorBoard callback
 
-
-
 #####################################################################
 libipmi.start()
 #####################################################################
@@ -85,12 +83,14 @@ libipmi.start()
 model.fit(ds_train,
           epochs=5,
           validation_data=ds_test)
+
+#####################################################################
+libipmi.stop()
+libipmi.dbToCSV('./data')
+#####################################################################
+
 with writer.as_default():
   tf.summary.trace_export(
       name="conv", # optional name
       step=0,
       profiler_outdir=logdir)
-#####################################################################
-libipmi.stop()
-libipmi.dbToCSV('./data')
-#####################################################################
