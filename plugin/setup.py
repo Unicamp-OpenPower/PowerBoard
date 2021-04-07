@@ -14,14 +14,28 @@
 # limitations under the License.
 # ==============================================================================
 
-
 import setuptools
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
 setuptools.setup(
     name="powerboard",
-    version="0.1.0",
+    version="0.0.1",
+	author="MatheusCod, juliokiyoshi",
+    author_email="openpower@ic.unicamp.br",
     description="Energy Profiling plugin for TensorBoard.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/Unicamp-OpenPower/PowerBoard",
+    project_urls={
+        "Bug Tracker": "https://github.com/Unicamp-OpenPower/PowerBoard/issues",
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: POSIX :: Linux",
+    ],
     packages=["powerboard"],
     package_data={
         "powerboard": ["static/**"],
