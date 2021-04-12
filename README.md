@@ -44,3 +44,6 @@ python setup.py develop --uninstall
 ```
 
 to unlink the plugin from your virtualenv, after which you can also delete the `energy_profiling_plugin.egg-info/` directory that the original `setup.py` invocation created.
+
+## LICENSE
+The project is under Apache License 2.0, but some files have their own open-source license.
