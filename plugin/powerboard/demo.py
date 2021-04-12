@@ -18,7 +18,7 @@
 from absl import app
 import tensorflow as tf
 
-from energy_profiling_plugin import summary_v2
+from powerboard import summary_v2
 
 
 tf.compat.v1.enable_eager_execution()

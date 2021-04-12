@@ -1,5 +1,5 @@
 // Copyright 2019 The TensorFlow Authors. All Rights Reserved.
-// Modifications Copyright 2020 MatheusCod
+// Modifications Copyright 2020 MatheusCod, juliokiyoshi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,8 +27,11 @@ export async function render() {
  newChart.style.margin = "auto";
  document.body.appendChild(newChart);
 
- const graphData = await fetch('./plotgraph').then((response) => response.json());
+ //const graphData = await fetch('./plotgraph').then((response) => response.json());
+ //data2 contem os dados reais adquiridos pelo IPMI
  //const data2= await fetch('./data').then((response)  => response.json());
+ const graphData = await fetch('./data').then((response) => response.json());
+ //console.log(data2)
 
  var script = document.createElement('script');
  script.onload = function () {
