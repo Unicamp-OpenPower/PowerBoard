@@ -64,7 +64,7 @@ export async function render() {
           }],
           yAxes: [{
             ticks: {
-              beginAtZero: true
+              beginAtZero: false
           },
             scaleLabel: {
             display: true,
