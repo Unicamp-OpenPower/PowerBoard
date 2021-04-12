@@ -18,7 +18,7 @@
 import tensorflow.compat.v2 as tf
 from tensorboard.compat.proto import summary_pb2
 
-from energy_profiling_plugin import metadata
+from powerboard import metadata
 
 
 def greeting(name, guest, step=None, description=None):
@@ -49,7 +49,7 @@ def greeting(name, guest, step=None, description=None):
     ) as (tag, _):
         return tf.summary.write(
             tag=tag,
-            tensor=tf.strings.join(["Hello, ", guest, "!"]),
+            tensor=tf.strings.join([guest]),
             step=step,
             metadata=_create_summary_metadata(description),
         )

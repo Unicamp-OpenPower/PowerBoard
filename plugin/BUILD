@@ -21,8 +21,8 @@ sh_test(
         "setup.py",
         "//tensorboard/pip_package",
     ] + glob([
-        "energy_profiling_plugin/*.py",
-        "energy_profiling_plugin/static/**",
+        "powerboard/*.py",
+        "powerboard/static/**",
     ]),
     tags = [
         "manual",  # https://github.com/tensorflow/tensorboard/issues/2987

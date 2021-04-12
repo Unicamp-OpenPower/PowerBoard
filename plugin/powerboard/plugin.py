@@ -1,5 +1,5 @@
 # Copyright 2019 The TensorFlow Authors. All Rights Reserved.
-# Modifications Copyright 2020 MatheusCod
+# Modifications Copyright 2020 MatheusCod, juliokiyoshi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 import random
 import mimetypes
 from tensorboard.backend import http_util
+import pandas as pd
 ########## NEW IMPORT ##########
 
 import json
@@ -28,15 +29,15 @@ from tensorboard.util import tensor_util
 import werkzeug
 from werkzeug import wrappers
 
-from energy_profiling_plugin import metadata
+from powerboard import metadata
 
-_PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/energy_profiling/"
+_PLUGIN_DIRECTORY_PATH_PART = "/data/plugin/powerboard/"
 
-class EnergyProfiling(base_plugin.TBPlugin):
+class PowerBoard(base_plugin.TBPlugin):
     plugin_name = metadata.PLUGIN_NAME
 
     def __init__(self, context):
-        """Instantiates EnergyProfiling.
+        """Instantiates PowerBoard.
 
         Args:
         context: A base_plugin.TBContext instance.
@@ -78,10 +79,16 @@ class EnergyProfiling(base_plugin.TBPlugin):
 
     @wrappers.Request.application
     def _serve_data(self,request):
-        df= pd.read_csv("./data/data.csv")
-        power=df["Power"].tolist()
-        time =df["Time"].tolist()
-        dict={'x': power, 'y': time}
+        path = request.args.get("tag")
+        #df = pd.read_csv(path)
+        df = pd.read_csv("./data/ipmi_data.csv") 
+        #para ver o pandas dataframe 
+        #print(df)
+        power = df["Sensor_Reading"].tolist()
+        time = df["Time_elapsed"].tolist()
+        for i in range(len(time)):
+            time[i] = float("{:.5f}".format(time[i]))
+        dict = {'x': time, 'y': power}
         contents = json.dumps(dict)
         #return werkzeug.Response(contents, content_type="application/json")
         return http_util.Respond(
@@ -90,7 +97,7 @@ class EnergyProfiling(base_plugin.TBPlugin):
 
     @wrappers.Request.application
     def _serve_plotgraph(self, request):
-        del request
+        #del request
         size = random.randint(10, 15)
         new_dict = {
             "x": [i for i in range(size)],
@@ -128,7 +135,7 @@ class EnergyProfiling(base_plugin.TBPlugin):
 
     @wrappers.Request.application
     def _serve_tags(self, request):
-        del request  # unused
+        #del request  # unused
         mapping = self._multiplexer.PluginRunToTagToContent(
             metadata.PLUGIN_NAME
         )
